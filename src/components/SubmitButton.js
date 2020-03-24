@@ -5,8 +5,10 @@ function SubmitButton(props) {
     return (
         <Button
             className="submitButton"
-            type="submit" variant="dark"
-            >
+            type="submit"
+            variant="dark"
+            onClick={props.getNBPData}
+        >
             Convert
         </Button>
     )

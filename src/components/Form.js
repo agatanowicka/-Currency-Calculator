@@ -9,7 +9,7 @@ function Form(props) {
    
     return (
         <div className="allForm">
-            <form onSubmit={props.getNBPData} className="form">
+            <form className="form">
                 <div className="leftDiv">
                     <Input
                         amount={props.amount}
@@ -28,7 +28,7 @@ function Form(props) {
                         value={props.value2}
                         handleSelect={props.handleSelect2}
                     />
-                    <SubmitButton />
+                    <SubmitButton getNBPData={props.getNBPData} />
                 </div>
             </form>
         </div>

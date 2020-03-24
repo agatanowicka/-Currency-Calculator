@@ -26,7 +26,7 @@ function MyChart(props) {
           margin={{ top: 25, right: 25, bottom: 25, left: 0 }}
         >
           <XAxis   dataKey="x" />
-          <YAxis  type="number" domain={['auto', 'auto']} dataKey="y" />
+          <YAxis  type="number" domain={['auto', 'dataMax']} dataKey="y" />
           
           <Area
             dataKey="y"
