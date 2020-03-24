@@ -44,7 +44,9 @@ export class DownloadData extends Component {
         event.preventDefault();
     }
     getNBPData(event) {
-        debugger;
+        const calculateRate = function (firstCurrencyRate, secondCurrencyRate) {
+            return Math.round((firstCurrencyRate / secondCurrencyRate) * 100) / 100;
+        };
         event.preventDefault();
         let date = new Date()
         let endDate = date.getFullYear() + '-' + ("0" + (date.getMonth() + 1)).slice(-2) + '-' + date.getDate();
@@ -60,41 +62,60 @@ export class DownloadData extends Component {
         const promise3 = axios.get(URL3);
         const promise4 = axios.get(URL4);
 
-        Promise.all([promise1, promise2, promise3, promise4])
+        Promise.allSettled([promise1, promise2, promise3, promise4])
             .then(([response1, response2, response3, response4]) => {
                 debugger;
-                const valueToConversion = Math.round(response1.data.rates[0].mid * this.state.amount * 100) / 100;
-                const valueAfterConversion = Math.round((valueToConversion / response2.data.rates[0].mid) * 100) / 100;
-                const valueOneCoin = Math.round((response1.data.rates[0].mid / response2.data.rates[0].mid) * 100) / 100;
-                const text1 = `${this.state.amount} ${this.state.value1} = ${valueAfterConversion} ${this.state.value2}`;
-                const text2 = `1 ${this.state.value1} = ${valueOneCoin} ${this.state.value2}`;
-
-                const mappedTab1 = response3.data.rates.map(obj => { return { date: obj.effectiveDate, value: obj.mid } })
-                const mappedTab2 = response4.data.rates.map(obj => { return { date: obj.effectiveDate, value: obj.mid } })
-                let calculatedTabObj = [];
-                for (let i = 0; i < mappedTab1.length; i++) {
-                    let object1 = mappedTab1[i];
-                    let object2 = mappedTab2[i];
-                    if (object1.date === object2.date) {
-                        const value = Math.round((object1.value / object2.value) * 100) / 100;
-                        calculatedTabObj.push({ date: object2.date, value: value });
-                    }
+                let errorMessage;
+                let valueAfterConversion;
+                let valueOneCoin;
+                let text1;
+                let text2;
+                if (this.state.value1 === this.state.value2) {
+                    errorMessage = `You try conver from ${this.state.value1} to ${this.state.value2}`;
                 }
-                const calculatedTab = calculatedTabObj.map(item => { return { x: item.date, y: item.value } })
-                alert(calculatedTab)
+                else if (response2.status === "fulfilled" && response1.status === "fulfilled") {
+                    valueOneCoin = calculateRate(response1.value.data.rates[0].mid, response2.value.data.rates[0].mid);
+                }
+                else if (response2.status === "rejected" && response1.status === "rejected") {
+                    errorMessage = `NBP server error`;
+                }
+                else if (response1.status === "rejected") {
+                    valueOneCoin = calculateRate(1, response2.value.data.rates[0].mid);
+                }
+                else if (response2.status === "rejected") {
+                    valueOneCoin = calculateRate(response1.value.data.rates[0].mid, 1);
+                }
+                valueAfterConversion = Math.round(valueOneCoin * this.state.amount * 100) / 100;
+                if (errorMessage) {
+                    text1 = errorMessage;
+                } else {
+                    text1 = `${this.state.amount} ${this.state.value1} = ${valueAfterConversion} ${this.state.value2}`;
+                    text2 = `1 ${this.state.value1} = ${valueOneCoin} ${this.state.value2}`;
+                }
+
+                let mappedTab1;
+                let mappedTab2;
+                let calculatedTabObj = [];
+                const transformResponseData = function (response) {
+                    return response.status === "fulfilled" ? response.value.data.rates.map(obj => { return { value: obj.mid, date: obj.effectiveDate } }) : [];
+                }
+                mappedTab1 = transformResponseData(response3);
+                mappedTab2 = transformResponseData(response4);
+                const maxValue = Math.max(mappedTab1.length, mappedTab2.length);
+                const neutralObject = { value: 1 };
+                for (let i = 0; i < maxValue; i++) {
+                    const object1 = mappedTab1[i] || neutralObject;
+                    const object2 = mappedTab2[i] || neutralObject;
+                    const date = object1.date || object2.date;
+                    const value = Math.round((object1.value / object2.value) * 100) / 100;
+                    calculatedTabObj.push({ x: date, y: value });
+                }
                 this.setState({
                     result2: text2,
                     result1: text1,
-                    chartData: calculatedTab
+                    chartData: calculatedTabObj
                 })
 
-            })
-            .catch((error) => {
-                debugger;
-                alert(error);
-                this.setState({
-                    currencyValue: "Error"
-                })
             })
     }
     swap = () => {
@@ -103,13 +124,13 @@ export class DownloadData extends Component {
             value1: this.state.value2,
             value2: firstCurrency
         })
-        this.getNBPData({preventDefault: () => {}});
+        this.getNBPData({ preventDefault: () => { } });
     }
 
     render() {
         return (
             <div>
-                <LeftContainer value1={this.state.value1} value2={this.state.value2}amount={this.amount} data1FromParent={this.state.result1} data2FromParent={this.state.result2} handleSelect1={this.handleSelect1} handleSelect2={this.handleSelect2} handleSubmit={this.handleSubmit} handleAmountChange={this.handleAmountChange} getNBPData={this.getNBPData} chartData={this.state.chartData} swap={this.swap} />
+                <LeftContainer value1={this.state.value1} value2={this.state.value2} amount={this.amount} data1FromParent={this.state.result1} data2FromParent={this.state.result2} handleSelect1={this.handleSelect1} handleSelect2={this.handleSelect2} handleSubmit={this.handleSubmit} handleAmountChange={this.handleAmountChange} getNBPData={this.getNBPData} chartData={this.state.chartData} swap={this.swap} />
             </div>
         )
     }
