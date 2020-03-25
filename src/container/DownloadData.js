@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from "axios";
-import LeftContainer from "../components/LeftContainer";
+import MainElements from "../components/MainElements";
 
 export class DownloadData extends Component {
     constructor(props) {
@@ -12,9 +12,10 @@ export class DownloadData extends Component {
             result1: "",
             result2: "",
             amount: "",
-            value1: '',
-            value2: '',
-            currencyValue: ''
+            value1: 'PLN',
+            value2: 'PLN',
+            currencyValue: '',
+            showChart: false
         }
         this.handleAmountChange = this.handleAmountChange.bind(this);
         this.getNBPData = this.getNBPData.bind(this);
@@ -64,14 +65,13 @@ export class DownloadData extends Component {
 
         Promise.allSettled([promise1, promise2, promise3, promise4])
             .then(([response1, response2, response3, response4]) => {
-                debugger;
                 let errorMessage;
                 let valueAfterConversion;
                 let valueOneCoin;
                 let text1;
                 let text2;
                 if (this.state.value1 === this.state.value2) {
-                    errorMessage = `You try conver from ${this.state.value1} to ${this.state.value2}`;
+                    errorMessage = `You are trying conver into ${this.state.value1} to ${this.state.value2}`;
                 }
                 else if (response2.status === "fulfilled" && response1.status === "fulfilled") {
                     valueOneCoin = calculateRate(response1.value.data.rates[0].mid, response2.value.data.rates[0].mid);
@@ -85,7 +85,7 @@ export class DownloadData extends Component {
                 else if (response2.status === "rejected") {
                     valueOneCoin = calculateRate(response1.value.data.rates[0].mid, 1);
                 }
-                valueAfterConversion = Math.round(valueOneCoin * this.state.amount * 100) / 100;
+                valueAfterConversion = Math.round(valueOneCoin * this.state.amount * 10000) / 10000;
                 if (errorMessage) {
                     text1 = errorMessage;
                 } else {
@@ -107,30 +107,33 @@ export class DownloadData extends Component {
                     const object1 = mappedTab1[i] || neutralObject;
                     const object2 = mappedTab2[i] || neutralObject;
                     const date = object1.date || object2.date;
-                    const value = Math.round((object1.value / object2.value) * 100) / 100;
+                    const value = Math.round((object1.value / object2.value) * 1000000) / 1000000;
                     calculatedTabObj.push({ x: date, y: value });
+                }
+                if (text1 !== errorMessage) {
+                    this.state.showChart = true;
                 }
                 this.setState({
                     result2: text2,
                     result1: text1,
                     chartData: calculatedTabObj
                 })
-
+                if (text1 !== errorMessage) {
+                    this.state.showChart = true;
+                }
             })
     }
     swap = () => {
         const firstCurrency = this.state.value1;
-        this.setState({
-            value1: this.state.value2,
-            value2: firstCurrency
-        })
+        this.state.value1 = this.state.value2;
+        this.state.value2 = firstCurrency;
         this.getNBPData({ preventDefault: () => { } });
     }
 
     render() {
         return (
             <div>
-                <LeftContainer value1={this.state.value1} value2={this.state.value2} amount={this.amount} data1FromParent={this.state.result1} data2FromParent={this.state.result2} handleSelect1={this.handleSelect1} handleSelect2={this.handleSelect2} handleSubmit={this.handleSubmit} handleAmountChange={this.handleAmountChange} getNBPData={this.getNBPData} chartData={this.state.chartData} swap={this.swap} />
+                <MainElements showChart={this.state.showChart} value1={this.state.value1} value2={this.state.value2} amount={this.amount} data1FromParent={this.state.result1} data2FromParent={this.state.result2} handleSelect1={this.handleSelect1} handleSelect2={this.handleSelect2} handleSubmit={this.handleSubmit} handleAmountChange={this.handleAmountChange} getNBPData={this.getNBPData} chartData={this.state.chartData} swap={this.swap} />
             </div>
         )
     }

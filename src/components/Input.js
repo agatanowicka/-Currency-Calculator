@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Input(props) {
     return (
-        <div className="labelAndInput">
+        <div >
             <label className="label">Amount:</label>
             <input
                 type="text"

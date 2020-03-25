@@ -4,7 +4,7 @@ import currency from '../Constans';
 
 function Select(props) {
     return (
-        <div className="labelAndInput">
+        <div >
             <label className="label">{props.label}</label>
             <select
                 className="formSelect"

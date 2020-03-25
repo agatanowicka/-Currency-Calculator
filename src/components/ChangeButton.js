@@ -8,7 +8,7 @@ function ChangeButton(props) {
             className="changeButton "
             variant="outline-dark"
             onClick={props.swap}>
-            <FaArrowsAltH />
+            <FaArrowsAltH  className="arrow"/>
         </Button>
     )
 }

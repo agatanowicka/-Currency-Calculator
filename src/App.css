@@ -1,11 +1,11 @@
 .heading{
   margin: 8% auto auto auto;
   text-align: center;
+  color: #272343;
 }
 .mainElements{
   padding: 3%;
   margin: 5% auto auto auto;
-  text-align: center;
   background-color:white;
   border-color:#272343;
   border-style: solid;
@@ -16,17 +16,9 @@
   display: block;
   position: relative;
 }
-.form{
-  display: flex;
-}
-.leftDiv{
-  display: flex;
-  margin: 2% 0px;
-}
 .formInput{
-  position: relative;
+  display: inline-block;
   width: 100px;
-  margin-right: 2%;
   height: 30px;
 }
 .labelAndInput{
@@ -35,28 +27,39 @@
 }
 .label{
   display: block;
-  margin: 2%;
   text-align: left;
 }
 .formSelect{
-  position: relative;
+ display: flex;
   width: 130px;
   height: 30px;
 }
 .changeButton{
-  display: flex;
-  margin: auto 2% 2% 2%;
+  display: inline-block;
   height: 30px;
-
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top:33px;
 }
 .allForm{
   display: flex;
   position: relative;
 }
 .submitButton{
-  margin: auto 2% 0% 2%;
   height: 30px;
+  display: flex;
+  margin-top: 33px;
 }
 .resultAndData{
   text-align: left;
+}
+.selectAndButton{
+  display: flex;
+}
+.columns{
+  padding: 0px;
+  margin: 10px;
+}
+.arrow{
+  margin-bottom: 10px;
 }

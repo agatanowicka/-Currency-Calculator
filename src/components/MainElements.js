@@ -5,7 +5,7 @@ import Result from "./Result";
 import Form from "./Form";
 import MyChart from "./MyChart";
 
-function LeftContainer(props) {
+function MainElements(props) {
     return (
         <div className="mainElements" >
             <Container>
@@ -22,7 +22,7 @@ function LeftContainer(props) {
                             swap={props.swap}
                             value1={props.value1}
                             value2={props.value2}
-                            
+
                         />
                         <Result
                             data1FromParent={props.data1FromParent}
@@ -30,8 +30,7 @@ function LeftContainer(props) {
                         />
                     </Col>
                     <Col lg={4}>
-                        <MyChart 
-                            chartData={props.chartData} />
+                    {props.showChart?<MyChart chartData={props.chartData} />:""}
                     </Col>
                 </Row>
             </Container>
@@ -39,4 +38,4 @@ function LeftContainer(props) {
     )
 }
 
-export default LeftContainer;
+export default MainElements;
