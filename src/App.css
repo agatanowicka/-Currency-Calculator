@@ -1,5 +1,5 @@
 .heading{
-  margin: 8% auto auto auto;
+  margin: 5% auto auto auto;
   text-align: center;
   color: #272343;
 }
@@ -15,6 +15,7 @@
   width: 95%;
   display: block;
   position: relative;
+  max-width: 1300px;
 }
 .formInput{
   display: inline-block;
