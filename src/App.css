@@ -1,66 +1,114 @@
-.heading{
-  margin: 5% auto auto auto;
-  text-align: center;
-  color: #272343;
+body {
+  background-image: url(/images/money.jpg);
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  margin-top: 0px;
 }
-.mainElements{
+
+.heading {
+  margin: 2% auto 2% auto;
+  text-align: center;
+  color: rgb(247, 77, 77);
+  text-shadow: 4px 10px 12px #000000;
+  font-size: 4em;
+  font-weight: bold;
+}
+
+.mainElements {
   padding: 3%;
-  margin: 5% auto auto auto;
-  background-color:white;
-  border-color:#272343;
+  margin: 5% auto 5% auto;
+  background-color: rgba(0, 24, 5, 0.959);
+  border-color: #272343;
   border-style: solid;
   border-width: 1px;
   border-radius: 10px;
- box-shadow: 2px 2px #e3f6f5;
+  box-shadow: 2px 2px #e3f6f5;
   width: 95%;
   display: block;
   position: relative;
   max-width: 1300px;
 }
-.formInput{
+
+.formInput {
   display: inline-block;
   width: 100px;
   height: 30px;
 }
-.labelAndInput{
+
+.labelAndInput {
   margin-right: 2%;
-  margin-bottom:0% ;
+  margin-bottom: 0%;
 }
-.label{
+
+.label {
   display: block;
   text-align: left;
+  color: white;
+  font-size: 1.2em;
 }
-.formSelect{
- display: flex;
+
+.formSelect {
+  display: flex;
   width: 130px;
   height: 30px;
 }
-.changeButton{
+
+.changeButton {
   display: inline-block;
   height: 30px;
   margin-left: 20px;
   margin-right: 20px;
-  margin-top:33px;
+  margin-top: 33px;
+  border-color: rgb(247, 77, 77);
 }
-.allForm{
+
+.changeButton:hover {
+  background-color: rgb(247, 77, 77);
+}
+
+.allForm {
   display: flex;
   position: relative;
 }
-.submitButton{
-  height: 30px;
+
+.submitButton {
+  height: 35px;
   display: flex;
   margin-top: 33px;
+  background-color: rgb(247, 77, 77);
+  border-color: rgb(247, 77, 77);
+  font-weight: bold;
 }
-.resultAndData{
+
+.submitButton:hover {
+  background-color: white;
+  color: rgb(247, 77, 77);
+  border-color: rgb(247, 77, 77);
+}
+
+.resultAndData {
   text-align: left;
+  margin-left: 10px;
+  color: white;
 }
-.selectAndButton{
+
+.selectAndButton {
   display: flex;
 }
-.columns{
+
+.columns {
   padding: 0px;
   margin: 10px;
 }
-.arrow{
+
+.arrow {
   margin-bottom: 10px;
+  color: rgb(247, 77, 77);
+}
+
+.arrow:hover {
+  color: white;
 }

@@ -6,10 +6,10 @@ function SubmitButton(props) {
         <Button
             className="submitButton"
             type="submit"
-            variant="dark"
+            variant='danger'
             onClick={props.getNBPData}
         >
-          Convert 
+            Convert
         </Button>
     )
 }

@@ -8,24 +8,24 @@ import {
   ResponsiveContainer
 } from "recharts";
 
-
 const colors = {
-  teal: "#18b0b0",
-  blueGrey: "#272343",
-  lightGrey: "#272343"
+  teal: "#ffffff",
+  blueGrey: "#ffffff",
+  lightGrey: "#ffffff"
 };
+
 function MyChart(props) {
   const data = props.chartData;
   return (
-    <div style={{ maxWidth: "800px", margin: "0 auto", height: "400px" }}>
+    <div style={{ maxWidth: "850px", margin: "0 10px", height: "400px" }}>
       <ResponsiveContainer>
         <AreaChart
           data={data}
           margin={{ top: 25, right: 10, bottom: 25, left: 0 }}
         >
-          <XAxis   dataKey="x" />
-          <YAxis  type="number" domain={['auto', 'auto']} dataKey="y" />
-          
+          <XAxis dataKey="x" />
+          <YAxis type="number" domain={['auto', 'auto']} dataKey="y" />
+
           <Area
             dataKey="y"
             isAnimationActive={false}

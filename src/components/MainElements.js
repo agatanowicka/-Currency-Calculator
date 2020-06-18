@@ -1,6 +1,5 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import 'bootstrap/dist/css/bootstrap.min.css';
 import Result from "./Result";
 import Form from "./Form";
 import MyChart from "./MyChart";
@@ -8,6 +7,7 @@ import MyChart from "./MyChart";
 function MainElements(props) {
     return (
         <div className="mainElements" >
+            <h1 className="heading">CURRENCY CALCULATOR</h1>
             <Container>
                 <Row>
                     <Col lg={8}>
@@ -18,7 +18,6 @@ function MainElements(props) {
                             handleSubmit={props.handleSubmit}
                             handleAmountChange={props.handleAmountChange}
                             getNBPData={props.getNBPData}
-                            getNBPDataAboutCurrency={props.getNBPDataAboutCurrency}
                             swap={props.swap}
                             value1={props.value1}
                             value2={props.value2}

@@ -1,9 +1,8 @@
 import React from "react";
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Result(props) {
     const tempDate = new Date();
-    const date = tempDate.getFullYear() + '-' + (tempDate.getMonth()+1) + '-' + tempDate.getDate() +' '+ tempDate.getHours()+':'+ tempDate.getMinutes();
+    const date = tempDate.getFullYear() + '-' + (tempDate.getMonth() + 1) + '-' + tempDate.getDate() + ' ' + tempDate.getHours() + ':' + tempDate.getMinutes();
     return (
         <div className="resultAndData">
             <h1>{props.data1FromParent}</h1>

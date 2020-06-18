@@ -6,9 +6,9 @@ function ChangeButton(props) {
     return (
         <Button
             className="changeButton "
-            variant="outline-dark"
+            variant="outline-danger"
             onClick={props.swap}>
-            <FaArrowsAltH  className="arrow"/>
+            <FaArrowsAltH className="arrow" />
         </Button>
     )
 }
