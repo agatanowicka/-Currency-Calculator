@@ -112,3 +112,11 @@ body {
 .arrow:hover {
   color: white;
 }
+
+@media(min-width: 1281px) {
+
+  .mainElements{
+    width: 80%;
+  }
+
+}
