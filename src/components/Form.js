@@ -10,30 +10,35 @@ function Form(props) {
         <form >
             <Container className="allForm">
                 <Row>
-                    <Col className="columns">
+                    <Col xs={12} s={2} md={2} lg={2} >
                         <Input
                             amount={props.amount}
                             handleAmountChange={props.handleAmountChange}
                         />
                     </Col>
-                    <Col  className="selectAndButton columns">
+                    <Col xs={12} s={3} md={3} lg={3} >
                         <Select
                             label="I have:"
                             value={props.value1}
                             handleSelect={props.handleSelect1}
                         />
+                    </Col>
+                    <Col xs={12} s={2} md={2} lg={2} className='changeBtnCol'>
                         <ChangeButton
                             value1={props.value1}
                             value2={props.value2}
                             swap={props.swap}
                         />
+                    </Col>
+                    <Col xs={12} s={3} md={3} lg={3} >
                         <Select
                             label="I convert into:"
                             value={props.value2}
                             handleSelect={props.handleSelect2}
                         />
                     </Col>
-                    <Col  className="columns" >
+
+                    <Col xs={12} s={2} md={2} lg={2} >
                         <SubmitButton getNBPData={props.getNBPData} />
                     </Col>
                 </Row>
